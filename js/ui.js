@@ -1,4 +1,4 @@
-const webSocket = new WebSocket("wss://14.39.153.3:30001/");
+
 const urlParams = new URLSearchParams(window.location.search);
 const ui = (() => {
 	var main = document.getElementById("overlay");
