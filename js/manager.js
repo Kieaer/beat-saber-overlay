@@ -1,15 +1,15 @@
 function connect() {
-	var ip = query.get("ip") || "localhost";
-	var port = query.get("port") || 6557;
+	var ip = query.get("ip") || "127.0.0.1";
+	var port = query.get("port") || 30001;
 
-	var socket = new WebSocket(`ws://${ip}:${port}/socket`);
+	var socket = new WebSocket(`ws://${ip}:${port}`);
 
 	socket.addEventListener("open", () => {
 		console.log("WebSocket opened");
 	});
 
-	socket.addEventListener("message", (message) => {
-		var data = JSON.parse(message.data);
+	socket.addEventListener("message", function (e) {
+		var data = JSON.parse(e.data);
 		var event = events[data.event];
 
 		if (event) {
