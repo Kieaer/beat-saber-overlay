@@ -1,3 +1,5 @@
+const webSocket = new WebSocket("ws://14.39.153.3:30001/");
+const urlParams = new URLSearchParams(window.location.search);
 const ui = (() => {
 	var main = document.getElementById("overlay");
 
@@ -10,7 +12,22 @@ const ui = (() => {
 		function format(number) {
 			return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
-
+		if (webSocket.readyState === webSocket.OPEN) {
+			// 연결 상태 확인 
+			let jsonData ={
+				"score" : format(data.score),
+				"combo" : data.combo,
+				"rank" : data.rank,
+				"percentage" : (data.currentMaxScore > 0 ? (Math.floor((data.score / data.currentMaxScore) * 1000) / 10) : 0) + "%"
+			}
+			jsonData.team = urlParams.get('team');
+			jsonData.name = urlParams.get('name');
+			jsonStr = JSON.stringify(jsonData);
+			webSocket.send(jsonStr);
+			// 웹소켓 서버에게 정보 전송 
+		} else {
+			alert("연결된 웹소켓 서버가 없습니다.");
+		}
 		return (data) => {
 			score.innerText = format(data.score);
 			combo.innerText = data.combo;
