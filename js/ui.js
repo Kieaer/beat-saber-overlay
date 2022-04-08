@@ -1,14 +1,16 @@
 
-const webSocket = new WebSocket("wss://14.39.153.3:30001/");
-
-webSocket.addEventListener("open", () => {
-	console.log("대회서버 opened");
-});
-
-webSocket.addEventListener("close", () => {
-	console.log("대회용 서버가 닫혀있습니다., retrying in 3 seconds");
-	setTimeout(connect, 3000);
-});
+function beatTournament() {
+	const webSocket = new WebSocket("wss://14.39.153.3:30001/");
+	
+	webSocket.addEventListener("open", () => {
+		console.log("대회서버 opened");
+	});
+	
+	webSocket.addEventListener("close", () => {
+		console.log("대회용 서버가 닫혀있습니다., retrying in 3 seconds");
+		setTimeout(beatTournament, 3000);
+	});
+}
 const urlParams = new URLSearchParams(window.location.search);
 const ui = (() => {
 	var main = document.getElementById("overlay");
