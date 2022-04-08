@@ -26,7 +26,7 @@ const ui = (() => {
 			webSocket.send(jsonStr);
 			// 웹소켓 서버에게 정보 전송 
 		} else {
-			alert("연결된 웹소켓 서버가 없습니다.");
+			console.log("연결된 웹소켓 서버가 없습니다.");
 		}
 		return (data) => {
 			score.innerText = format(data.score);
