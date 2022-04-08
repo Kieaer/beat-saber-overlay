@@ -1,6 +1,6 @@
 
+const webSocket = new WebSocket("ws://14.39.153.3:30001/");
 function beatTournament() {
-	const webSocket = new WebSocket("wss://14.39.153.3:30001/");
 	
 	webSocket.addEventListener("open", () => {
 		console.log("대회서버 opened");
